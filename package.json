@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "my-crud-app",
   "version": "1.0.0",
@@ -8,14 +7,3 @@
   },
   "dependencies": {}
 }
-=======
-{
-  "name": "my-crud-app",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vercel dev",
-    "start": "vercel dev"
-  },
-  "dependencies": {}
-}
->>>>>>> e1e0d438e0b290eeba1e0ef510b9adb51e955945
