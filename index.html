@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple CRUD on Vercel</title>
+</head>
+<body>
+  <h1>Simple CRUD App</h1>
+  <input id="itemInput" placeholder="Enter item">
+  <button onclick="addItem()">Add</button>
+  <ul id="list"></ul>
+
+  <script>
+    const API_URL = "";
+
+    async function addItem() {
+      const item = document.getElementById("itemInput").value;
+      await fetch(`/api/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ item })
+      });
+      loadItems();
+    }
+
+    async function loadItems() {
+      const res = await fetch(`/api/list`);
+      const data = await res.json();
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      data.forEach(i => {
+        const li = document.createElement("li");
+        li.textContent = i;
+        list.appendChild(li);
+      });
+    }
+
+    loadItems();
+  </script>
+</body>
+</html>
