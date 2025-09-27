@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Submit Message</title>
+<style>
+body { font-family: Arial; margin: 40px; }
+input, textarea, button { display: block; margin: 10px 0; padding: 8px; width: 300px; }
+</style>
+</head>
+<body>
+<h1>Submit Your Message</h1>
+<input type="text" id="name" placeholder="Your name (optional)">
+<textarea id="message" placeholder="Your message"></textarea>
+<button onclick="submitMessage()">Submit</button>
+<p id="status"></p>
+
+<script>
+async function submitMessage() {
+  const name = document.getElementById('name').value;
+  const message = document.getElementById('message').value;
+  const status = document.getElementById('status');
+
+  if (!message.trim()) {
+    status.textContent = "Message cannot be empty!";
+    return;
+  }
+
+  const res = await fetch('/api/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, message })
+  });
+
+  const data = await res.json();
+  if (res.ok) {
+    status.textContent = "Message submitted!";
+    document.getElementById('name').value = '';
+    document.getElementById('message').value = '';
+  } else {
+    status.textContent = "Error: " + data.error;
+  }
+}
+</script>
+</body>
+</html>
