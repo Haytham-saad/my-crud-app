@@ -7,7 +7,6 @@
     "start": "vercel dev"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.44.4"
+    "@supabase/supabase-js": "^2.58.0"
   }
 }
-
