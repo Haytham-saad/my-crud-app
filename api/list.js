@@ -1,24 +1,25 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default async function handler(req, res) {
-  const adminSecret = req.headers['x-admin-secret'] || req.query.admin_secret;
-  if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
-    return res.status(401).json({ error: 'unauthorized' });
+  const adminSecret = req.query.admin_secret
+  if (adminSecret !== process.env.ADMIN_SECRET) {
+    return res.status(401).json({ error: 'Unauthorized' })
   }
 
   try {
     const { data, error } = await supabase
       .from('submissions')
       .select('*')
-      .order('id', { ascending: false });
-    if (error) throw error;
-    return res.json(data);
+      .order('created_at', { ascending: false })
+
+    if (error) throw error
+
+    res.status(200).json(data)
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message })
   }
 }
