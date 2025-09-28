@@ -1,9 +1,13 @@
 {
   "name": "my-crud-app",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "start": "vercel dev"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@supabase/supabase-js": "^2.44.4"
+  }
 }
+
